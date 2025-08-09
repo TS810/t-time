@@ -28,4 +28,10 @@
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4"
   }
+  "homepage": "https://TS810.github.io",
+  "scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+
 }
