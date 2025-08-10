@@ -37,7 +37,7 @@ export default function TTime() {
   useEffect(() => {
     document.body.classList.add('t-time-css');
 
-    fetch('http://localhost:4000/playlists')
+    fetch(`${import.meta.env.VITE_API_URL}/playlists`)
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
