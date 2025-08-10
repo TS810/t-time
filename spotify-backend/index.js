@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000; // Heroku 환경변수 우선 사용
 
 app.use(cors());
 
@@ -15,7 +15,6 @@ let tokenExpiresAt = 0;
 
 async function getAccessToken() {
   if (Date.now() < tokenExpiresAt) {
-    // 토큰 아직 유효하면 재사용
     return accessToken;
   }
 
@@ -25,7 +24,9 @@ async function getAccessToken() {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization:
         'Basic ' +
-        Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64'),
+        Buffer.from(
+          process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET
+        ).toString('base64'),
     },
     body: new URLSearchParams({
       grant_type: 'client_credentials',
@@ -33,9 +34,8 @@ async function getAccessToken() {
   });
 
   const data = await response.json();
-
   accessToken = data.access_token;
-  tokenExpiresAt = Date.now() + data.expires_in * 1000; // 만료시간 업데이트
+  tokenExpiresAt = Date.now() + data.expires_in * 1000;
 
   return accessToken;
 }
@@ -45,13 +45,12 @@ app.get('/playlists', async (req, res) => {
     const token = await getAccessToken();
     const userId = '315h6cmi7zzlwqzqup6l424erpzu';
 
-    // 플레이리스트 목록 가져오기
-    const playlistsRes = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const playlistsRes = await fetch(
+      `https://api.spotify.com/v1/users/${userId}/playlists`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
     const playlistsData = await playlistsRes.json();
 
-    // 각 플레이리스트의 트랙 가져오기
     const playlistsWithTracks = await Promise.all(
       playlistsData.items.map(async (playlist) => {
         const tracksRes = await fetch(
@@ -81,5 +80,5 @@ app.get('/playlists', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`서버가 http://localhost:${PORT} 에서 실행중입니다.`);
+  console.log(`서버가 포트 ${PORT}에서 실행 중입니다.`);
 });
