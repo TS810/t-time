@@ -207,6 +207,10 @@ body.about-css {
     justify-content: center;
 }
 
+.about-container {
+    padding: 10vw;
+}
+
 .about-mainText {
     padding: 0;
     margin-top: 5rem;
