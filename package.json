@@ -1,16 +1,15 @@
 {
-  "homepage": "https://t-time.xyz",
   "name": "t-time",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-  "predeploy": "npm run build",
-  "deploy": "npx gh-pages -d dist"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.53.0",
@@ -29,6 +28,8 @@
     "globals": "^16.3.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
-    "vite": "^7.0.4"
-  }
+    "vite": "^7.0.4",
+    "gh-pages": "^4.0.0"
+  },
+  "homepage": "https://TS810.github.io/t-time"
 }

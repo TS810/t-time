@@ -1,7 +1,5 @@
-import { useState } from 'react'
-import { Link, Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, Routes, Route, HashRouter, useLocation } from 'react-router-dom'
 import './main.css'
 
 import About from '../src/pages/about'
@@ -11,12 +9,12 @@ import Birthday from '../src/pages/hbd'
 import Interview from '../src/pages/interview'
 import Comment from '../src/pages/comment'
 
-function App() {
+function AppContent() {
   const [menuVisible, setMenuVisible] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
-    setMenuVisible(false)  // 페이지 이동될 때 메뉴 닫기
+    setMenuVisible(false) // 페이지 이동 시 메뉴 닫기
   }, [location])
 
   return (
@@ -51,12 +49,14 @@ function App() {
 
         <span id="myID">@eehdrhdiddl</span>
       </div>
+
       {location.pathname === '/' && (
         <>
           <div className="main-text" style={{ margin: '0 0 0 23vw' }}>T</div>
           <div className="main-text" style={{ margin: '70vh 0 0 70vw' }}>ㅡtime!</div>
         </>
       )}
+
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/schedule" element={<Schedule />} />
@@ -69,4 +69,10 @@ function App() {
   )
 }
 
-export default App
+export default function App() {
+  return (
+    <HashRouter>
+      <AppContent />
+    </HashRouter>
+  )
+}
