@@ -1,1 +1,1 @@
-"web: cd spotify-backend && npm start" 
+web: cd spotify-backend && npm start
