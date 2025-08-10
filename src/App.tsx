@@ -41,7 +41,7 @@ function AppContent() {
         <ul>
           <li><Link to="/hbd">BEE HAPPY birthday, TS!</Link></li>
           <li><Link to="/t-time">TㅡTime</Link></li>
-          <li><Link to="/about">t-time.xyz</Link></li>
+          <li><Link to="/about">.xyz</Link></li>
           {/* <li><Link to="/schedule">스케줄 | Schedule</Link></li> */}
           <li><Link to="/interview">10039192</Link></li>
 {/*           <li style={{opacity:"15%"}}><Link to="/comment">-</Link></li> */}
