@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 import '../sub.css';
+import aboutSandsound from '../../public/img/about-sandsound.png'
+import aboutTp1 from '../../public/img/about-tp1.png'
+import aboutTp2 from '../../public/img/about-tp2.png'
 
 export default function About() {
     useEffect(() => {
@@ -17,8 +20,8 @@ export default function About() {
         </div>
         <div className="about-content">
           <div className="about-photo">
-            <img className="about-photo-1" src="../../public/img/about-sandsound.png" alt="" />
-            <img className="about-photo-2" src="../../public/img/about-tp1.png" alt="" />
+            <img className="about-photo-1" src={aboutSandsound} alt="" />
+            <img className="about-photo-2" src={aboutTp1} alt="" />
           </div>
           <table className="about-table1">
           <tr>
@@ -42,7 +45,7 @@ export default function About() {
           </div>
         
           <div className="about-photo3">
-            <img src="../../public/img/about-tp2.png" alt="" />
+            <img src={aboutTp2} alt="" />
           </div>
           <div className="about-mainText about-main2">
           여러분이 저의 나무가 되어주세요.<br></br>
