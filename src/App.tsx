@@ -47,7 +47,7 @@ function AppContent() {
 {/*           <li style={{opacity:"15%"}}><Link to="/comment">-</Link></li> */}
         </ul>
 
-{/*         <span id="myID">@eehdrhdiddl</span> */}
+        <span id="myID">@eehdrhdiddl</span>
       </div>
 
       {location.pathname === '/' && (
