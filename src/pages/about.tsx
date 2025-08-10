@@ -3,6 +3,7 @@ import '../sub.css';
 import aboutSandsound from '../../public/img/about-sandsound.png'
 import aboutTp1 from '../../public/img/about-tp1.png'
 import aboutTp2 from '../../public/img/about-tp2.png'
+import { Link } from 'react-router-dom';
 
 export default function About() {
     useEffect(() => {
@@ -39,9 +40,9 @@ export default function About() {
           </table>
           
           <div className="about-direct">
-            <a className="sub-a" href="/hbd"><span>BEE HAPPY</span> BIRTHDAY, TS! ↗</a>
-            <a className="sub-a" href="/t-time">T<span>ㅡ</span>Time ↗</a>
-            <a className="sub-a" href="/interview">10039192 ↗</a>
+            <Link className="sub-a" to="/hbd"><span>BEE HAPPY</span> BIRTHDAY, TS! ↗</Link>
+            <Link className="sub-a" to="/t-time">T<span>ㅡ</span>Time ↗</Link>
+            <Link className="sub-a" to="/interview">10039192 ↗</Link>
           </div>
         
           <div className="about-photo3">
