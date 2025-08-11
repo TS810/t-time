@@ -69,13 +69,17 @@ export default function Birthday() {
                     : item.content
                   }}
                 ></div>
-                <div className="live-img">
-                  {item.link ? (
-                    <a href={item.link} target="_blank" rel="noopener noreferrer">
-                      <img src={item.img_url} alt="" />
-                    </a>
-                  ) : (<img src={item.img_url} alt="" />)}
-                </div>
+                {item.img_url && (
+  <div className="live-img">
+    {item.link ? (
+      <a href={item.link} target="_blank" rel="noopener noreferrer">
+        <img src={item.img_url} alt="" />
+      </a>
+    ) : (
+      <img src={item.img_url} alt="" />
+    )}
+  </div>
+)}
                 <div className="to-date">{formatted} {displayTime}</div>
               </div>
             </div>
@@ -94,13 +98,17 @@ export default function Birthday() {
                     : item.content
                   }}
                 ></div>
-                <div className="live-img">
-                  {item.link ? (
-                    <a href={item.link} target="_blank" rel="noopener noreferrer">
-                      <img src={item.img_url} alt="" />
-                    </a>
-                  ) : (<img src={item.img_url} alt="" />)}
-                </div>
+                {item.img_url && (
+  <div className="live-img">
+    {item.link ? (
+      <a href={item.link} target="_blank" rel="noopener noreferrer">
+        <img src={item.img_url} alt="" />
+      </a>
+    ) : (
+      <img src={item.img_url} alt="" />
+    )}
+  </div>
+)}
                 <div className="from-date">{formatted} {displayTime}</div>
               </div>
             </div>
