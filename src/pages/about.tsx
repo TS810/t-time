@@ -66,6 +66,10 @@ export default function About() {
               <td>가지💢(.. 빼고 다 먹어요), 달달한 제육볶음</td>
             </tr>
             <tr>
+              <td>반려 친구</td>
+              <td>용용이(빨간색 파란색이 섞여있고, 굉장히 화려하고, 용같이 생김🐠)</td>
+            </tr>
+            <tr>
               <td>타자 속도</td>
               <td>270타<span>(정확도 100%)</span></td>
             </tr>
