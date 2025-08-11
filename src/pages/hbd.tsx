@@ -53,6 +53,16 @@ export default function Birthday() {
           day: '2-digit',
         });
 
+                          {hbdList.map((item) => {
+                      console.log("렌더", item.id, item.type, Boolean(item.img_url), item.img_url);
+                      return (
+                        <div key={item.id}>
+                          {item.img_url && <img src={item.img_url} alt="" />}
+                        </div>
+                      );
+                    })}
+
+
         const displayTime = item.time.slice(0, 5); // "12:00"
 
         const formatted = formattedDate.replace(/\. /g, '년 ').replace('.', '월').replace('.', '일');
