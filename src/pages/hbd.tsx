@@ -76,7 +76,6 @@ export default function Birthday() {
                     </a>
                   ) : (<img src={item.img_url} alt="" />)}
                 </div>
-                <div clas
                 <div className="to-date">{formatted} {displayTime}</div>
               </div>
             </div>
@@ -102,7 +101,6 @@ export default function Birthday() {
                     </a>
                   ) : (<img src={item.img_url} alt="" />)}
                 </div>
-                <div clas
                 <div className="from-date">{formatted} {displayTime}</div>
               </div>
             </div>
