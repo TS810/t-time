@@ -31,28 +31,50 @@ export default function TTime() {
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [songItems, setSongItems] = useState<SongItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error] = useState('');
   const [sbError, setSbError] = useState('');
 
   useEffect(() => {
     document.body.classList.add('t-time-css');
 
-    fetch(`${import.meta.env.VITE_API_URL}/playlists`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setPlaylists(data);
-        }
-        setLoading(false);
-      })
-      .catch(() => {
-        setError('서버에서 데이터를 가져오는 데 실패했습니다.');
-        setLoading(false);
-      });
+    // Supabase에서 playlist_data, track_data 가져와서 조합
+    const fetchSupabasePlaylists = async () => {
+      try {
+        const { data: playlistData, error: playlistError } = await supabase
+          .from('playlist_data')
+          .select('*');
 
-    const fetchSupabaseData = async () => {
+        const { data: trackData, error: trackError } = await supabase
+          .from('track_data')
+          .select('*');
+
+        if (playlistError) throw playlistError;
+        if (trackError) throw trackError;
+
+        // playlist_data + track_data -> Playlist[] 형태로 변환
+        const playlistsFromSb: Playlist[] = playlistData.map((pl) => ({
+          id: pl.id || pl.playlist_name, // id 없으면 이름 사용
+          name: pl.playlist_name,
+          url: pl.playlist_url,
+          tracks: trackData
+            .filter((t) => t.playlist_name === pl.playlist_name)
+            .map((t) => ({
+              id: `${t.playlist_name}-${t.track_name}`, // 고유 키
+              name: t.track_name,
+              artist: t.track_artist,
+            })),
+        }));
+
+        setPlaylists(playlistsFromSb);
+      } catch (err: any) {
+        setSbError(err.message || '데이터를 불러오는데 실패했습니다.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // 기존 t-time 크레딧 데이터 가져오기
+    const fetchSupabaseCredits = async () => {
       const { data, error } = await supabase.from('t-time').select('*');
       if (error) {
         setSbError(error.message);
@@ -60,7 +82,9 @@ export default function TTime() {
         setSongItems(data);
       }
     };
-    fetchSupabaseData();
+
+    fetchSupabasePlaylists();
+    fetchSupabaseCredits();
 
     return () => {
       document.body.classList.remove('t-time-css');
@@ -110,12 +134,12 @@ export default function TTime() {
                       rel="noopener noreferrer"
                       className="arrow-icon"
                       title="바로가기"
-                    >↗
+                    >
+                      ↗
                     </a>
                   )}
                   <br />
                   <span className="artist-gray">{item.artist}</span>
-                  
                 </td>
               </tr>
             ))}
@@ -126,12 +150,13 @@ export default function TTime() {
   };
 
   return (
-    <div className="topContainer" style={{ width: '100vw', padding: '7vh 10vw', boxSizing:'border-box'}}>
+    <div className="topContainer" style={{ width: '100vw', padding: '7vh 10vw', boxSizing: 'border-box' }}>
       <div className="des">
-      태산이가 추천/언급한 곡<br></br>
-      날짜 클릭시 플레이리스트 이동
+        태산이가 추천/언급한 곡
+        <br />
+        날짜 클릭시 플레이리스트 이동
       </div>
-      <div className='container' style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div className="container" style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div>
           {sortedPlaylists.map((playlist) => (
             <div className="recommendTs" key={playlist.id}>
@@ -177,7 +202,7 @@ export default function TTime() {
           {renderCreditTable('arrange')}
           {renderCreditTable('cover')}
         </div>
-        </div>
+      </div>
     </div>
   );
 }
